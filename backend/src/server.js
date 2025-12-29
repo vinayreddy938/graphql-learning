@@ -28,8 +28,10 @@ const typeDefs = gql`
     }
 
     type Query{
-        getAllTodos:[Todo!]
+        getAllTodos:[Todo!],
+        getTodoById(id:ID!):Todo
         }
+      
 
 
 `
@@ -37,6 +39,10 @@ const resolvers={
     Query:{
         getAllTodos:()=>{
             return Todos;
+        },
+        getTodoById:(_,args)=>{
+            const {id}=args;
+            return Todos.find((todo)=>todo.id===id);
         }
     }
 }
